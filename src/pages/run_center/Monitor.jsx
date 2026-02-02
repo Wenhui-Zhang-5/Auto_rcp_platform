@@ -1,9 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { runEvents } from "../../data/mock.js";
 
-export default function Monitor() {
-  const { runId } = useParams();
+export default function Monitor({ runId }) {
 
   return (
     <div className="page">

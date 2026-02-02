@@ -1,8 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-
-export default function Results() {
-  const { runId } = useParams();
+export default function Results({ runId }) {
 
   return (
     <div className="page">

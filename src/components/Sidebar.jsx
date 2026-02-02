@@ -1,11 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { navSections } from "../data/routes.js";
+import { buildHashHref } from "../router.js";
 
-const getLinkClass = ({ isActive }) =>
-  isActive ? "nav-link nav-link-active" : "nav-link";
+export default function Sidebar({ currentPath }) {
+  const isActive = (path) => currentPath === path;
 
-export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="brand">
@@ -21,9 +20,13 @@ export default function Sidebar() {
             <p className="nav-title">{section.title}</p>
             <div className="nav-links">
               {section.items.map((item) => (
-                <NavLink key={item.path} to={item.path} className={getLinkClass}>
+                <a
+                  key={item.path}
+                  href={buildHashHref(item.path)}
+                  className={isActive(item.path) ? "nav-link nav-link-active" : "nav-link"}
+                >
                   {item.label}
-                </NavLink>
+                </a>
               ))}
             </div>
           </div>

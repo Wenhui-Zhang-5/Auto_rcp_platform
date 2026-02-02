@@ -1,20 +1,19 @@
 import React from "react";
-import { useLocation, matchPath } from "react-router-dom";
 import { breadcrumbMap } from "../data/routes.js";
+import { matchRoute } from "../router.js";
 
 const getBreadcrumbs = (pathname) => {
   const patterns = Object.keys(breadcrumbMap);
   for (const pattern of patterns) {
-    if (matchPath({ path: pattern, end: true }, pathname)) {
+    if (matchRoute(pattern, pathname)) {
       return breadcrumbMap[pattern];
     }
   }
   return ["Home"];
 };
 
-export default function Topbar() {
-  const { pathname } = useLocation();
-  const crumbs = getBreadcrumbs(pathname);
+export default function Topbar({ currentPath }) {
+  const crumbs = getBreadcrumbs(currentPath);
 
   return (
     <header className="topbar">
