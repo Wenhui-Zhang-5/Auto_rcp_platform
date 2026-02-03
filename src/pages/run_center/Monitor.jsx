@@ -1,95 +1,108 @@
-import React from "react";
-import { runEvents } from "../../data/mock.js";
+import React, { useEffect, useState } from "react";
+import { getRunDetail, saveCheckpoint, startRunTicker, updateWorkspaceStatus } from "../../data/mockApi.js";
 
-export default function Monitor({ runId }) {
+export default function Monitor({ workspaceId }) {
+  const [detail, setDetail] = useState(() => getRunDetail(workspaceId));
+  const [selectedSeed, setSelectedSeed] = useState(null);
+
+  useEffect(() => {
+    startRunTicker();
+    const interval = window.setInterval(() => {
+      setDetail({ ...getRunDetail(workspaceId) });
+    }, 3000);
+    return () => window.clearInterval(interval);
+  }, [workspaceId]);
+
+  const handleStop = () => {
+    updateWorkspaceStatus(workspaceId, "completed");
+  };
+
+  const handleCheckpoint = () => {
+    setDetail({ ...saveCheckpoint(workspaceId) });
+  };
 
   return (
     <div className="page">
       <header className="page-header">
         <div>
-          <p className="eyebrow">Run Center</p>
+          <p className="eyebrow">Workspace</p>
           <h2>Run Monitor</h2>
-          <p className="subtle">Live status and controls for run {runId}.</p>
+          <p className="subtle">Model-level monitoring for {workspaceId}.</p>
         </div>
         <button className="primary-button">Open Results</button>
       </header>
-
-      <section className="panel status-panel">
-        <div>
-          <p className="summary-label">Run Status</p>
-          <h3 className="status-pill status-running">running</h3>
-        </div>
-        <div>
-          <p className="summary-label">Current Stage</p>
-          <p className="summary-value">Fitting - Step 2</p>
-        </div>
-        <div>
-          <p className="summary-label">Seed</p>
-          <p className="summary-value">S2 / Material SiN</p>
-        </div>
-        <div>
-          <p className="summary-label">ETA</p>
-          <p className="summary-value">38 min</p>
-        </div>
-      </section>
 
       <section className="panel">
         <div className="panel-header">
           <h3>Control Center</h3>
           <div className="inline-actions">
-            <button className="ghost-button">Pause</button>
-            <button className="ghost-button">Resume</button>
-            <button className="danger-button">Stop</button>
+            <button className="danger-button" onClick={handleStop}>Stop</button>
+            <button className="ghost-button" onClick={handleCheckpoint}>Stop + Checkpoint</button>
           </div>
         </div>
-        <div className="control-grid">
-          <div className="control-card">
-            <p>Seed Control</p>
-            <button className="ghost-button">Stop Seed S1</button>
-          </div>
-          <div className="control-card">
-            <p>Step Control</p>
-            <button className="ghost-button">Retry Step</button>
-          </div>
-          <div className="control-card">
-            <p>Checkpoint</p>
-            <button className="ghost-button">Save Snapshot</button>
-          </div>
-        </div>
+        <div className="panel-note">Controls trigger mock state transitions.</div>
       </section>
 
       <section className="grid two-col">
         <div className="panel">
           <div className="panel-header">
-            <h3>Event Timeline</h3>
+            <h3>Trace</h3>
             <button className="ghost-button">Filter</button>
           </div>
           <div className="timeline">
-            {runEvents.map((event, index) => (
+            {detail.trace.map((event, index) => (
               <div className="timeline-row" key={`${event.time}-${index}`}>
                 <span className="time">{event.time}</span>
                 <div>
-                  <p className="list-title">{event.step} - {event.seed}</p>
+                  <p className="list-title">{event.action}</p>
                   <p className="list-subtitle">{event.note}</p>
                 </div>
-                <span className={`status-pill status-${event.result.toLowerCase()}`}>
-                  {event.result}
-                </span>
+                <span className="chip">{event.action}</span>
               </div>
             ))}
           </div>
         </div>
         <div className="panel">
           <div className="panel-header">
-            <h3>Result Tabs</h3>
+            <h3>Live Ranking</h3>
             <div className="inline-actions">
-              <button className="ghost-button">Spectrum</button>
-              <button className="ghost-button">Linearization</button>
-              <button className="ghost-button">NK Curves</button>
+              <button className="ghost-button">Refresh</button>
             </div>
           </div>
-          <div className="plot-placeholder">Live Plot Container</div>
-          <div className="plot-placeholder small">KPI Cards Placeholder</div>
+          <div className="table">
+            <div className="table-row table-head">
+              <span>Rank</span>
+              <span>Seed</span>
+              <span>Iteration</span>
+              <span>KPI</span>
+              <span>Status</span>
+            </div>
+            {detail.ranking.map((row) => (
+              <button
+                className="table-row"
+                key={`${row.seedId}-${row.rank}`}
+                onClick={() => setSelectedSeed(row.seedId)}
+              >
+                <span>{row.rank}</span>
+                <span>{row.seedId}</span>
+                <span>{row.iteration}</span>
+                <span>{row.kpi}</span>
+                <span className="chip">{row.status}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-header">
+          <h3>Detail View</h3>
+          <span className="chip">Seed: {selectedSeed || "Select a row"}</span>
+        </div>
+        <div className="grid three-col">
+          <div className="plot-placeholder">Linear Plot (TM vs OCD)</div>
+          <div className="plot-placeholder">NK Curves</div>
+          <div className="plot-placeholder">Spectrum Fitting</div>
         </div>
       </section>
     </div>

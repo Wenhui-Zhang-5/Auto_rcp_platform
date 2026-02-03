@@ -1,14 +1,13 @@
 import React from "react";
 
-export default function Results({ workspaceId }) {
-
+export default function ResultsSummary({ workspaceId }) {
   return (
     <div className="page">
       <header className="page-header">
         <div>
-          <p className="eyebrow">Workspace</p>
-          <h2>Results Summary</h2>
-          <p className="subtle">Final report for model {workspaceId}.</p>
+          <p className="eyebrow">Results</p>
+          <h2>Summary</h2>
+          <p className="subtle">Final KPI and best result for {workspaceId}.</p>
         </div>
         <button className="primary-button">Save as Template</button>
       </header>

@@ -130,12 +130,58 @@ a {
   gap: 6px;
 }
 
+.nav-subsections {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.nav-group {
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(8, 12, 20, 0.6);
+  border: 1px solid rgba(34, 50, 79, 0.6);
+}
+
+.nav-group-active {
+  border-color: rgba(40, 209, 198, 0.35);
+}
+
+.nav-group-title {
+  margin: 0 0 6px 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.nav-group-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .nav-link {
   padding: 8px 12px;
   border-radius: 10px;
   color: var(--muted);
   font-size: 0.92rem;
   transition: all 0.2s ease;
+}
+
+.nav-link-locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.nav-link-readonly {
+  opacity: 0.7;
+}
+
+.nav-group-locked {
+  opacity: 0.5;
 }
 
 .nav-link-active {
@@ -185,6 +231,18 @@ a {
 .topbar-actions {
   display: flex;
   gap: 12px;
+}
+
+.workspace-meta {
+  display: flex;
+  gap: 16px;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.workspace-status {
+  margin-bottom: 16px;
 }
 
 .content {
@@ -305,6 +363,19 @@ a {
   gap: 12px;
 }
 
+.checkbox-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .form-row {
   display: flex;
   flex-direction: column;
@@ -325,6 +396,67 @@ textarea {
   color: var(--text);
   padding: 10px 12px;
   font-family: "Space Grotesk", sans-serif;
+}
+
+.select-like {
+  background: rgba(8, 12, 20, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  width: 100%;
+  background: rgba(8, 12, 20, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.dropdown-caret {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.dropdown-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  background: rgba(8, 12, 20, 0.98);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  z-index: 20;
+  max-height: 220px;
+  overflow: auto;
+  box-shadow: 0 12px 24px rgba(5, 10, 18, 0.6);
+}
+
+.dropdown-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  color: var(--text);
 }
 
 textarea {
@@ -402,6 +534,15 @@ textarea {
   border-bottom: 1px solid rgba(34, 50, 79, 0.6);
 }
 
+button.list-row {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .list-title {
   margin: 0;
   font-weight: 600;
@@ -454,6 +595,24 @@ textarea {
   align-items: center;
   padding: 8px 0;
   border-bottom: 1px solid rgba(34, 50, 79, 0.5);
+}
+
+button.table-row {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.link-row {
+  cursor: pointer;
+  color: inherit;
+}
+
+.link-row:hover {
+  background: rgba(40, 209, 198, 0.08);
 }
 
 .table-row input {
@@ -528,6 +687,26 @@ textarea {
 .status-running {
   background: rgba(40, 209, 198, 0.2);
   border: 1px solid rgba(40, 209, 198, 0.4);
+}
+
+.status-temp {
+  background: rgba(157, 178, 214, 0.18);
+  border: 1px solid rgba(157, 178, 214, 0.4);
+}
+
+.status-draft {
+  background: rgba(255, 181, 71, 0.18);
+  border: 1px solid rgba(255, 181, 71, 0.4);
+}
+
+.status-queued {
+  background: rgba(47, 165, 255, 0.18);
+  border: 1px solid rgba(47, 165, 255, 0.4);
+}
+
+.status-completed {
+  background: rgba(46, 231, 165, 0.2);
+  border: 1px solid rgba(46, 231, 165, 0.4);
 }
 
 .status-paused {

@@ -70,19 +70,12 @@ export default function FittingStrategy() {
           </div>
           <div className="form-grid">
             <div className="form-row">
-              <label>Enable Weighting</label>
-              <label className="switch">
-                <input type="checkbox" defaultChecked />
-                <span className="slider" />
-              </label>
+              <label>Min Weight</label>
+              <input type="text" defaultValue="0.2" />
             </div>
             <div className="form-row">
-              <label>Weight Factor</label>
-              <input type="text" defaultValue="0.75" />
-            </div>
-            <div className="form-row">
-              <label>Band Source</label>
-              <input type="text" defaultValue="Pre-Recipe sensitivity" />
+              <label>Max Weight</label>
+              <input type="text" defaultValue="0.9" />
             </div>
           </div>
         </div>

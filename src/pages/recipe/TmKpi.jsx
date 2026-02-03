@@ -45,6 +45,7 @@ export default function TmKpi() {
             </div>
           ))}
         </div>
+        <div className="panel-note">Baseline confirmation required before start.</div>
       </section>
 
       <section className="panel">

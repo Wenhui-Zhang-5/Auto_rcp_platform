@@ -24,6 +24,27 @@ export const recentRuns = [
 
 export const waferIds = ["WAFER-223A", "WAFER-118C", "WAFER-77B", "WAFER-19A"];
 
+export const spectrumIds = [
+  "SPEC-001",
+  "SPEC-002",
+  "SPEC-003",
+  "SPEC-004",
+  "SPEC-005"
+];
+
+export const timeRanges = [
+  "2024-06-01 08:00-10:00",
+  "2024-06-01 10:00-12:00",
+  "2024-06-02 08:00-10:00"
+];
+
+export const spectrumByWafer = {
+  "WAFER-223A": ["SPEC-001", "SPEC-002", "SPEC-003"],
+  "WAFER-118C": ["SPEC-002", "SPEC-004"],
+  "WAFER-77B": ["SPEC-003", "SPEC-005"],
+  "WAFER-19A": ["SPEC-001", "SPEC-004", "SPEC-005"]
+};
+
 export const basisCdRows = [
   { id: "CD01", name: "Line CD", current: 32.4, nominal: 32.0, range: "31.5-33.2", unit: "nm" },
   { id: "CD02", name: "Pitch", current: 64.1, nominal: 64.0, range: "63.0-65.0", unit: "nm" },

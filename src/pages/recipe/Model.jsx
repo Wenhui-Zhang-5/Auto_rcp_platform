@@ -13,6 +13,17 @@ export default function Model() {
         <button className="primary-button">Reload Model</button>
       </header>
 
+      <section className="panel narrow">
+        <div className="panel-header">
+          <h3>Model ID</h3>
+          <span className="chip">API: /models/{'{'}modelID{'}'}</span>
+        </div>
+        <div className="form-row">
+          <label>Model ID</label>
+          <input type="text" defaultValue="M-ALD-77" />
+        </div>
+      </section>
+
       <section className="panel">
         <div className="panel-header">
           <h3>Basis CD</h3>
@@ -82,6 +93,14 @@ export default function Model() {
           <div>
             <p className="summary-label">Oscillators</p>
             <p className="summary-value">{materialSummary.oscillators}</p>
+          </div>
+          <div>
+            <p className="summary-label">Spectrum Range</p>
+            <p className="summary-value">380-780 nm</p>
+          </div>
+          <div>
+            <p className="summary-label">SE / SR Ratio</p>
+            <p className="summary-value">0.82</p>
           </div>
         </div>
       </section>

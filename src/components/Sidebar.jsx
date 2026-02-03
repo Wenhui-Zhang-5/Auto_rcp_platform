@@ -1,5 +1,5 @@
 import React from "react";
-import { navSections } from "../data/routes.js";
+import { platformNavSections } from "../data/routes.js";
 import { buildHashHref } from "../router.js";
 
 export default function Sidebar({ currentPath }) {
@@ -15,7 +15,7 @@ export default function Sidebar({ currentPath }) {
         </div>
       </div>
       <nav className="nav">
-        {navSections.map((section) => (
+        {platformNavSections.map((section) => (
           <div className={`nav-section nav-${section.theme}`} key={section.title}>
             <p className="nav-title">{section.title}</p>
             <div className="nav-links">

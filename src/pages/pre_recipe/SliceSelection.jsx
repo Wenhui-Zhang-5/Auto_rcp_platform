@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SliceSelection() {
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState("Balanced");
+
   return (
     <div className="page">
       <header className="page-header">
@@ -17,51 +19,75 @@ export default function SliceSelection() {
       <section className="grid two-col">
         <div className="panel">
           <div className="panel-header">
-            <h3>Wafer Configuration</h3>
+            <h3>Basic Configuration</h3>
             <button className="ghost-button">Load Wafer Map</button>
           </div>
           <div className="form-grid">
-            <div className="form-row">
-              <label>Wafer A Points</label>
-              <input type="number" defaultValue={3} />
-            </div>
-            <div className="form-row">
-              <label>Wafer B Points</label>
-              <input type="number" defaultValue={3} />
-            </div>
             <div className="form-row">
               <label>Trim Radius (mm)</label>
               <input type="number" defaultValue={148} />
             </div>
             <div className="form-row">
-              <label>Center/Middle/Edge Boundaries</label>
-              <input type="text" defaultValue="0-50 / 50-100 / 100-148" />
+              <label>Center Boundary (mm)</label>
+              <input type="number" defaultValue={50} />
+            </div>
+            <div className="form-row">
+              <label>Middle Boundary (mm)</label>
+              <input type="number" defaultValue={100} />
+            </div>
+            <div className="form-row">
+              <label>Edge Boundary (mm)</label>
+              <input type="number" defaultValue={148} />
             </div>
           </div>
           <div className="panel-note">
-            Region quotas must sum to each wafer's total points.
+            Boundaries are formatted as Center (0 to value), Middle (center to value), Edge (middle to trim radius).
           </div>
         </div>
         <div className="panel">
           <div className="panel-header">
-            <h3>Region Quotas</h3>
-            <button className="ghost-button">Auto Balance</button>
+            <h3>Wafer Region Quotas</h3>
+            <button className="ghost-button">Add Wafer</button>
           </div>
-          <div className="quota-grid">
-            <div className="quota-row">
+          <div className="table">
+            <div className="table-row table-head">
+              <span>Wafer</span>
               <span>Center</span>
-              <input type="number" defaultValue={2} />
-            </div>
-            <div className="quota-row">
               <span>Middle</span>
-              <input type="number" defaultValue={3} />
-            </div>
-            <div className="quota-row">
               <span>Edge</span>
+            </div>
+            <div className="table-row">
+              <span>WAFER-223A</span>
+              <input type="number" defaultValue={2} />
+              <input type="number" defaultValue={3} />
               <input type="number" defaultValue={1} />
             </div>
+            <div className="table-row">
+              <span>WAFER-118C</span>
+              <input type="number" defaultValue={1} />
+              <input type="number" defaultValue={2} />
+              <input type="number" defaultValue={2} />
+            </div>
           </div>
-          <div className="panel-note">Current total: 6 points</div>
+          <div className="panel-note">Each wafer maintains its own quota counts.</div>
+        </div>
+      </section>
+
+      <section className="panel">
+        <div className="panel-header">
+          <h3>Algorithm Selection</h3>
+          <span className="chip">Choose one</span>
+        </div>
+        <div className="inline-actions">
+          {["Balanced", "Center Focus", "Edge Focus", "Randomized"].map((algo) => (
+            <button
+              key={algo}
+              className={selectedAlgorithm === algo ? "primary-button" : "ghost-button"}
+              onClick={() => setSelectedAlgorithm(algo)}
+            >
+              {algo}
+            </button>
+          ))}
         </div>
       </section>
 
@@ -120,6 +146,7 @@ export default function SliceSelection() {
           </div>
         </div>
       </section>
+
     </div>
   );
 }
